@@ -1,0 +1,55 @@
+
+<div class="Authors" style="font-family:Lato,'Helvetica Neue',Helvetica,sans-serif;display: flex;flex-direction: column">
+
+  <h1 style="padding-left: 8rem;padding-top: 2rem;font-family:Lato,'Helvetica Neue',Helvetica,sans-serif;font-weight: bold;color: #382110">Authors on
+    CorvoBianco</h1>
+  <h3 style="padding-left: 8rem;font-family:Lato,'Helvetica Neue',Helvetica,sans-serif">Authors who's work is approved and displayed on
+    CorvoBianco</h3>
+  @for (author of authors; track author.id)
+  {
+
+    <div class="author" style="display: flex;flex-direction: row;padding-left: 9rem">
+      <div class="authorImage">
+        <img routerLink="/author-details/{{author.id}}" priority ngSrc="https://localhost:7162/GetAuthorImage?id={{author.id}}" alt="authorImage" height="85" width="85"
+             style="border-radius: 100%;margin-top: 1rem;margin-bottom: 0.5rem;cursor: pointer;">
+      </div>
+      <div class="authorInfo" style="font-family:Lato,'Helvetica Neue',Helvetica,sans-serif">
+        <h3 style="font-family:Lato,'Helvetica Neue',Helvetica,sans-serif;padding-left: 1rem">{{ author.firstName }} {{ author.lastName }}</h3>
+        @if(author.books && author.books.length > 0)
+        {
+          @for (authorBook of author.books; let i = $index; track i;)
+          {
+            @if(i === 0)
+            {
+              @if(author.books.length === 1)
+              {
+                <h5 style="padding-left: 1rem">Author of the <mark style="background-color:white;color: #00635d;cursor: pointer" routerLink="/book-details/{{authorBook.id}}">{{authorBook.title }}</mark></h5>
+              }
+              @else
+              {
+                <h5 style="padding-left: 1rem">Author of the <mark style="background-color:white;color: #00635d;cursor: pointer" routerLink="/book-details/{{authorBook.id}}">{{authorBook.title }}</mark> and <mark routerLink="/author-details/{{author.id}}" style="background-color: white;color: #00635d;cursor: pointer">{{ author.books.length - 1 }} more books</mark></h5>
+              }
+            }
+          }
+          @if(authService.isAdmin())
+          {
+            <button mat-raised-button (click)="deleteAuthor(author.id)" style="margin-left: 22rem;height: 1.5rem">Delete Author</button>
+          }
+        }
+        @else
+        {
+
+          <h5 style="padding-left: 1rem">This Author has no books approved at the given time. Check in soon.</h5>
+          @if(authService.isAdmin())
+          {
+          <button mat-raised-button (click)="deleteAuthor(author.id)" style="margin-left: 22rem;height: 1.5rem">Delete Author</button>
+          }
+        }
+      </div>
+    </div>
+    <mat-divider style="width: 38.5%;margin-left: 7rem">-</mat-divider>
+  }
+
+
+</div>
+

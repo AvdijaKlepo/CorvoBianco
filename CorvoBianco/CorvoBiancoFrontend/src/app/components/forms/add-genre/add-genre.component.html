@@ -1,0 +1,17 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <h1 mat-dialog-title> Add New Genre</h1>
+  <div mat-dialog-content style="display:flex;flex-direction: column;width: 25rem">
+    <mat-form-field style="width: 20rem">
+      <mat-label>Genre Name</mat-label>
+      <input matInput formControlName="genreName">
+    </mat-form-field>
+
+
+
+
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button (click)="closeAddGenreDialog()" >Cancel</button>
+    <button mat-raised-button type="submit">Add Genre</button>
+  </div>
+</form>

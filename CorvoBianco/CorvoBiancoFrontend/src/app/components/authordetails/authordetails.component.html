@@ -1,0 +1,70 @@
+@if(authorDetails)
+{
+  <div class="bookDetails" style="background-color: white">
+
+    <!-- BookCover-->
+    <div class="bookCover">
+      <img priority ngSrc="https://localhost:7162/GetAuthorImage?id={{authorDetails.id}}" width="200" height="300" alt="BookCover"
+           style="border-bottom-right-radius: 5%;border-top-right-radius: 5%;">
+      <div class="detailButtons">
+
+        @if(authService.isAdmin())
+        {<button mat-raised-button style="margin-top: 1rem;background-color: #F4F1EA" (click)="openEditAuthorDialog(authorDetails)">Edit Author Details</button>
+        <button mat-raised-button style="margin-top: 1rem;background-color: #F4F1EA" (click)="openEditAuthorImage()">Edit Author Profile Image</button>
+        }
+
+
+      </div>
+    </div>
+
+    <!-- Info-->
+
+    <div class="bookInfo" style="font-family: Lato,'Helvetica Neue',Helvetica,sans-serif">
+      <h2 style="font-weight: bolder">{{authorDetails.firstName}} {{authorDetails.lastName}}</h2>
+      <mat-divider style="width: 50%;">-</mat-divider>
+      <h1 style="font-size: medium">
+        <mark style="font-size: medium;background-color: white;padding-right: 6rem;font-weight: bold">Born:</mark> {{authorDetails.born | date}}</h1>
+      <p style="width: 50%;font-size: larger;white-space: pre-wrap"><mark style="background-color: white;font-weight: bold;">Biography:</mark> <br> <br>{{authorDetails.bio | slice:sliceOptions.start:sliceOptions.end}}</p>
+      <div *ngIf="authorDetails.bio.length>=sliceOptions.default">
+        <span (click)="seeMore($event)" style="cursor: pointer">See more</span>
+      </div>
+      <br>
+
+      <h4>{{authorDetails.firstName}} {{authorDetails.lastName}} Books</h4>
+      <mat-divider style="width: 50%">-</mat-divider>
+      @for(authorBooks of authorDetails.books;track authorBooks.id;)
+      {
+        <div style="display: flex;flex-direction: row;font-family:  Lato,'Helvetica Neue',Helvetica,sans-serif">
+          <div style="padding-top: 0.5rem">
+            <img  style="cursor: pointer;" routerLink="/book-details/{{authorBooks.id}}" ngSrc="https://localhost:7162/BookCover?id={{authorBooks.id}}" alt="bookImage" width="60" height="80">
+          </div>
+          <div>
+            <h4 style="padding-left: 0.4rem;padding-top: 0.2rem">{{authorBooks.title}} </h4>
+            <h5 style="padding-left: 0.4rem;">By {{authorDetails.firstName}} {{authorDetails.lastName}} </h5>
+            <h5 style="padding-left: 0.4rem;">{{authorBooks.rating}} Reviews {{authorBooks.ratingCount}} Ratings</h5>
+
+
+
+          </div>
+          <div style="position: absolute">
+            <button mat-raised-button
+                    style="margin-left: 34rem;margin-top: 3rem;background-color: #409d69;color: white;width: 10rem;height: 1.5rem;font-family:Copernicus,'Libre Baskerville',Georgia,serif">
+              Want to read
+            </button>
+          </div>
+        </div>
+        <mat-divider style="width: 50%">-</mat-divider>
+      }
+    </div>
+    <!-- Book Details-->
+  </div>
+
+
+}
+
+
+
+
+
+
+

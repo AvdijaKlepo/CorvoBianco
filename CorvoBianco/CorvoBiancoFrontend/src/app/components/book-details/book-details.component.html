@@ -1,0 +1,191 @@
+<ng-container *ngIf="bookDetails"> <!-- napravi getter-->
+  <div class="bookDetails" style="background-color: white;font-family:Lato,'Helvetica Neue',Helvetica,sans-serif">
+
+    <!-- BookCover-->
+    <div class="bookCover">
+      <img priority ngSrc="https://localhost:7162/BookCover?id={{bookDetails.id}}" width="200" height="300"
+           alt="BookCover"
+           style="border-bottom-right-radius: 5%;border-top-right-radius: 5%;">
+      <div class="detailButtons">
+        @if(authService.isLogged())
+        {
+        <button mat-raised-button [matMenuTriggerFor]="menu" style="background-color: #F4F1EA;font-family: Lato,'Helvetica Neue',serif">
+          {{ currentBookStatus || "Want to Read" }}
+        </button>
+
+        <mat-menu #menu="matMenu" style="width: 10rem">
+          <button mat-menu-item style="margin-top: 1rem;font-family:Lato,'Helvetica Neue',serif" (click)="addToWantToRead()">Want To Read</button>
+          <button mat-menu-item style="margin-top: 1rem;font-family:Lato,'Helvetica Neue',serif" (click)="addToCurrentyReading();getBookStatus()">Currently reading</button>
+          <button mat-menu-item style="margin-top: 1rem;font-family:Lato,'Helvetica Neue',serif" (click)="addToRead()">Read</button>
+        </mat-menu>
+          <button mat-raised-button style="margin-top: 1rem;font-family:Lato,'Helvetica Neue',serif;background-color: #F4F1EA" (click)="removeStatus(userId,bookDetails.id,currentBookStatus)">Remove from my shelf</button>
+        } @else{
+          <button mat-raised-button style="margin-top: 1rem;font-family:Lato,'Helvetica Neue',serif;background-color: #F4F1EA" >Log in to add to books!</button>
+
+        }
+        @if(authService.isLogged())
+        {
+        <button mat-raised-button
+                style="margin-top: 1rem;background-color: #F4F1EA;font-family:Lato,'Helvetica Neue',serif"
+        (click)="openBuyBookDialog()">
+          Buy on CorvoBianco
+        </button>
+        } @else {
+          <button style="margin-top: 1rem;background-color: #F4F1EA;font-family:Lato,'Helvetica Neue',serif;" mat-raised-button>Log in to buy book!</button>
+        }
+        @if(authService.isAdmin())
+        {
+        <button mat-raised-button
+                style="margin-top: 1rem;background-color: #F4F1EA;font-family:Lato,'Helvetica Neue',serif"
+                (click)="openAddBookCoverDialog(bookDetails)">Edit Book
+        </button>
+        <button mat-raised-button
+                style="margin-top: 1rem;background-color: #F4F1EA;font-family:Lato,'Helvetica Neue',serif"
+                (click)="openEditBookCoverDialog()">Edit Book Cover
+        </button>
+        }
+
+
+      </div>
+      <!-- Star Rating -->
+      <div class="star-rating">
+
+        <ng-container *ngFor="let star of stars; let i = index">
+          <span (click)="rateBook(i + 1);" [class.filled]="star">&#9733;</span>
+        </ng-container>
+
+      </div>
+      @if(currentRating!=0)
+      {
+        <div style="cursor: pointer;display: flex;flex-direction: column"><span (click)="deleteRating(userId,bookDetails.id)"
+                 style="padding-left: 3.3rem;padding-top: 0.3rem;font-family: Lato,'Helvetica Neue',serif">Delete rating</span>
+          <span (click)="openReviewDialog()"
+                style="cursor: pointer;padding-left: 3.3rem;padding-top: 0.3rem;font-family: Lato,'Helvetica Neue',serif">Write a review</span></div>
+
+      } @else {
+        <span (click)="openReviewDialog()" style="cursor: pointer;padding-left: 3.3rem;padding-top: 0.3rem;font-family: Lato,'Helvetica Neue',serif">Rate this book</span>
+      }
+
+    </div>
+      </div>
+
+
+    <!-- Info-->
+
+    <div class="bookInfo" style="font-family:Copernicus,'Libre Baskerville',Georgia,serif">
+      <p class="bookSeries" routerLink="/series-overview/{{bookDetails.seriesId}}"
+         [state]="{author:bookDetails.author,authorId:bookDetails.authorId}"
+         style="font-weight: lighter;font-size: large;cursor: pointer;"> {{bookDetails.series}}</p>
+      <p style="font-weight: normal;font-size: xx-large">{{bookDetails.title}}</p>
+      <span routerLink="/author-details/{{bookDetails.authorId}}"
+            style="font-size: larger;font-weight: lighter;cursor: pointer">{{bookDetails.author}}</span>
+      <p style="font-size: medium">{{bookDetails.rating?.toPrecision(2)}} • {{bookDetails.ratingCount}}</p>
+      @if(bookDetails.description.length>=sliceOptions.default)
+      {
+      <p style="width: 50rem;font-size: larger;white-space: pre-wrap;">{{bookDetails.description |
+        slice:sliceOptions.start:sliceOptions.end}}
+        <mark style="background-color: white;color: #00635d"><span id="seeMoreBookDescription"
+                                                                   (click)="seeMore($event);Hidden=!Hidden"
+                                                                   style="cursor: pointer">{{Hidden ? "...Show more": "Show Less"}}</span>
+        </mark>
+      </p>
+      }
+      @else
+      {
+      <p style="width: 50rem;font-size: larger;white-space: pre-wrap;">{{bookDetails.description}}</p>
+      }
+
+
+      <br>
+      <span style="font-size: larger;font-weight: lighter">Genre: {{bookDetails.genres}}</span>
+      <p style="font-size: larger;font-weight: lighter">{{bookDetails.pageCount}} pages</p>
+      <p style="font-size: larger;font-weight: lighter">First Published {{bookDetails.published | date}}</p>
+
+      <mat-divider style="width: 58rem">-</mat-divider>
+      <br>
+      Want to read - Currenty reading
+      <br>
+      <br>
+      <mat-divider>-</mat-divider>
+
+      <p style="font-size: x-large;padding-top: 1rem">About the Author</p>
+      <div style="display: flex;flex-direction: row;">
+        <div>
+          <img routerLink="/author-details/{{bookDetails.authorId}}" priority
+               ngSrc="https://localhost:7162/GetAuthorImage?id={{bookDetails.authorId}}" alt="authorImage" height="1000"
+               width="786"
+               style="border-radius: 100%; width: 5rem;height: 5rem">
+        </div>
+        <div style="font-family:Lato,'Helvetica Neue',Helvetica,sans-serif">
+          <p
+            style="font-weight: normal;font-size: large;font-family:Copernicus,'Libre Baskerville',Georgia,serif;padding-top: 0.5rem;padding-left: 1rem">
+            {{ bookDetails.author }}</p>
+          @if(bookDetails.authorBooks.length>1)
+          {
+          <p style="font-weight: lighter;padding-left: 1rem;font-size: smaller">{{bookDetails.authorBooks.length}}
+            books</p>
+          } @else {
+          <p style="font-weight: lighter;padding-left: 1rem;font-size: smaller">{{bookDetails.authorBooks.length}}
+            book</p>
+
+          }
+
+        </div>
+
+
+      </div>
+
+
+      <p style="font-size: larger;width: 50rem;white-space: pre-wrap">{{bookDetails.authorBio |
+        slice:sliceOptions.start:sliceOptions.end}}
+
+        <mark id="seeMore" *ngIf="bookDetails.authorBio.length>=sliceOptions.default"
+              (click)="setLocation();seeMore($event)"
+              style="cursor: pointer;background-color: white;color: #00635d">... See more
+        </mark>
+      </p>
+
+
+      <mat-divider style="width: 58rem;">-</mat-divider>
+    </div>
+    <!-- Book Details-->
+
+
+  <div class="Books"
+       style="font-family:Copernicus,'Libre Baskerville',Georgia,serif;background-color: white;margin-left: 44rem;margin-right: 15rem">
+    <p style="font-size: x-large;padding-top: 1rem">Other works by {{ bookDetails.author }}</p>
+    <div class="carousel-wrapper">
+      <div class="carousel-inner">
+        <owl-carousel-o [options]="customOptions">
+          @for (authorBooks of bookDetails.authorBooks; track authorBooks.id) {
+          @if (authorBooks.id != route.snapshot.params['id']) {
+          <ng-template carouselSlide [width]="240">
+            <mat-card class="cardBook">
+              <a class="cardBook-link" (click)="reloadBook(authorBooks.id);">
+                <img mat-card-xl-image ngSrc="https://localhost:7162/BookCover?id={{authorBooks.id}}" alt="bookCover"
+                     width="100" height="100">
+                <mat-card-content class="cardBook-content">
+                  <p style="height: 2rem">{{ authorBooks.title }}</p>
+                  <p>{{ bookDetails.author }}</p>
+                  <div class="cardBook-rating">
+                    <mat-icon>star</mat-icon>
+                    <p>{{ authorBooks.rating }} • {{ authorBooks.ratingCount }}</p>
+                  </div>
+                </mat-card-content>
+              </a>
+            </mat-card>
+          </ng-template>
+          }
+          }
+        </owl-carousel-o>
+      </div>
+    </div>
+    <br><br><br><br><br>
+
+  </div>
+</ng-container>
+
+
+
+
+

@@ -1,0 +1,76 @@
+<div class="navbar" style="position: fixed; display: flex; flex-direction: column; z-index: 10">
+  <div>
+    <mat-toolbar class="header">
+      <mat-toolbar-row class="headerItems">
+        <mat-icon>book</mat-icon>
+        <h1 style="font-size: medium">The Big Books of Spring</h1>
+        <h1 style="font-size: small; font-weight: lighter; padding-top: 0.1rem">Discover readers' most anticipated new releases this season</h1>
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </div>
+
+  <div>
+    <mat-toolbar class="navigationBar">
+      <mat-toolbar-row class="navigationBarItems">
+        <div class="right">
+          <span class="title" style="font-weight: 100;">corvo</span>
+          <span class="title" style="color: #382110; font-weight: normal">Bianco</span>
+          <div class="NavigationBarLinks">
+            <a href="">Home</a>
+            <a href="" routerLink="my-books">My Books</a>
+            <a href="" routerLink="homepage">Explore</a>
+            <a routerLink="authors">Authors</a>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column" (click)="onDocumentClick($event)">
+          <div>
+            <mat-form-field class="search-field">
+              <input matInput [(ngModel)]="searchString" (input)="filterBooks()" placeholder="Search books" (focus)="onFocus()" (blur)="onBlur()">
+            </mat-form-field>
+          </div>
+
+          <div class *ngIf="filteredBooks.length && searchString.length" style="padding-top: 3rem; position: absolute; z-index: 1;width: 100%;padding-top: 4.4rem">
+            <ul style="list-style: none;padding: 0;margin: 0">
+              <li style="background-color: white; font-size: small; margin-right: 3rem; width: 18rem; display: flex; flex-direction: row" *ngFor="let book of filteredBooks">
+                <div class="display" routerLink="/book-details/{{book.id}}" (click)="resetSearch()">
+                  <img ngSrc="https://localhost:7162/BookCover?id={{book.id}}" alt="" width="70" height="70" style="padding-top: 0.4rem; padding-left: 0.4rem">
+                </div>
+                <div>{{ book.title }} <br> by {{ book.author }}</div>
+                <mat-divider></mat-divider>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        @if(service.isLogged())
+        {
+
+
+            <i class="material-icons" routerLink="user-profile/{{userId}}" style="cursor: pointer;">person</i>
+
+        }
+        @if(service.isLogged())
+        {
+          <button mat-raised-button (click)="service.logOutUser()" style="height: 2.5rem; width: 6rem; margin-left: 3rem; background-color: #730505; color:#fde9d4; font-family:Lato,'Helvetica Neue',Helvetica,sans-serif">
+            Log out
+          </button>
+
+        } @else {
+          <button mat-raised-button (click)="openLoginDialog()" style="height: 2.5rem; width: 6rem; margin-left: 3rem; background-color: #730505; color:#fde9d4; font-family:Lato,'Helvetica Neue',Helvetica,sans-serif">
+            Sign in/up
+          </button>
+        }
+        @if(service.isAdmin())
+        {
+        <button mat-raised-button style="background-color: #730505; color: #fde9d4; height: 2.5rem; margin-left: 1rem; width: 6rem; font-family:Lato,'Helvetica Neue',Helvetica,sans-serif" (click)="openUpdateDialog()">Staff</button>
+        }
+        @if(service.isAdmin())
+        {
+        <button mat-raised-button routerLink="/orders">Orders</button>
+        }
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </div>
+</div>

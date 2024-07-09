@@ -1,0 +1,90 @@
+<div>
+  <div style="text-align: center;padding-top: 1rem">
+    <button mat-raised-button (click)="orderClicked=false">Orders on standby</button>
+    <button mat-raised-button (click)="orderClicked=true" style="margin-left: 1rem">All Orders</button>
+  </div>
+  <div class="books" style="padding-top: 2rem;">
+    <label style="margin-left: 23rem;margin-top: 2rem;">Cover</label>
+    <label style="margin-left: 7rem;margin-top: 2rem;">Title/Genre</label>
+    <label style="margin-left: 7rem;margin-top: 2rem;">Author</label>
+    <label style="margin-left: 7rem;margin-top: 2rem;">Rating</label>
+    <label style="margin-left: 7rem;margin-top: 2rem;">Series</label>
+    <label style="margin-left: 7rem;margin-top: 2rem;">Ordered By</label>
+
+    <mat-divider style="margin-left: 20rem;margin-right: 20rem;--mat-divider-width:0.3rem">-</mat-divider>
+    @for (o of orders; track o.orderId) {
+      @if(!orderClicked)
+      {
+      @if(!o.isPurchased)
+      {
+      <div style="display: flex;flex-direction: row">
+        <div class="bookCovers" style="display: flex;flex-direction: row;padding-left: 20.2rem;padding-top: 1rem">
+
+          <img priority ngSrc="https://localhost:7162/BookCover?id={{o.bookId}}" width="150" height="220" alt="">
+
+        </div>
+        <div class="bookInfo" style="width: 10rem">
+          <p style="padding-top: 1rem;color: #00635d;padding-left: 1rem">{{ o.title }}</p>
+
+
+        </div>
+        <div style="padding-left: 2rem;padding-top: 1rem;">
+          <p style="color: #00635d;">{{ o.author }}</p>
+        </div>
+        <div style="padding-left: 7rem;padding-top: 1rem">
+          <p style="color: #00635d">{{ o.rating?.toPrecision(2) }} </p>
+        </div>
+        <div style="padding-left: 6.5rem;padding-top: 1rem">
+          <p style="color: #00635d">{{ o.series }} </p>
+        </div>
+        <div style="padding-left: 6.5rem;padding-top: 1rem">
+          <p style="color: #00635d">{{ o.user }} </p>
+        </div>
+      </div>
+      <mat-divider style="margin-left: 20rem;margin-top: 1rem;margin-right: 20rem;">-</mat-divider>
+
+      <button mat-raised-button style="margin-left: 20rem" (click)="shipOrder(o.orderId);orderClicked=true">Order Shipped</button>
+      }
+      }
+
+    }
+
+    @for (o of orders; track o.orderId) {
+      @if(orderClicked)
+      {
+      @if(o.isPurchased)
+      {
+        <div style="display: flex;flex-direction: row">
+          <div class="bookCovers" style="display: flex;flex-direction: row;padding-left: 20.2rem;padding-top: 1rem">
+
+            <img priority ngSrc="https://localhost:7162/BookCover?id={{o.bookId}}" width="150" height="220" alt="">
+
+          </div>
+          <div class="bookInfo" style="width: 10rem">
+            <p style="padding-top: 1rem;color: #00635d;padding-left: 1rem">{{ o.title }}</p>
+
+
+          </div>
+          <div style="padding-left: 2rem;padding-top: 1rem;">
+            <p style="color: #00635d;">{{ o.author }}</p>
+          </div>
+          <div style="padding-left: 7rem;padding-top: 1rem">
+            <p style="color: #00635d">{{ o.rating?.toPrecision(2) }} </p>
+          </div>
+          <div style="padding-left: 6.5rem;padding-top: 1rem">
+            <p style="color: #00635d">{{ o.series }} </p>
+          </div>
+          <div style="padding-left: 6.5rem;padding-top: 1rem">
+            <p style="color: #00635d">{{ o.user }} </p>
+          </div>
+        </div>
+        <mat-divider style="margin-left: 20rem;margin-top: 1rem;margin-right: 20rem;">-</mat-divider>
+
+        <button mat-raised-button style="margin-left: 20rem" (click)="shipOrder(o.orderId);orderClicked=true">Order Shipped</button>
+
+      }
+      }
+
+    }
+  </div>
+</div>

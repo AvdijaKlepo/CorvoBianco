@@ -1,0 +1,158 @@
+<<div style="font-family: Lato, 'Helvetica Neue', serif; font-weight: bold;">
+  <br>
+  <span style="padding-left: 25rem; font-size: xx-large; color: #00635d; font-family: Lato, 'Helvetica Neue', serif; font-weight: bold;">{{ user?.name }}'s Books</span>
+  <mat-divider style="margin-left: 25rem; margin-right: 30rem; margin-top: 1rem;"></mat-divider>
+  <div style="display: flex;">
+    <div class="bookshelf" style="display: flex; flex-direction: column; width: 34rem; margin-right: 2rem; height: 7rem;">
+    <p style="padding-left: 25rem;color:black;width: 5rem">Bookshelves</p>
+    <p style="padding-left: 25rem;color:#00635d;cursor: pointer"
+         (click)="allBooksLabelClicked=true;
+        wantToReadBooksLabelClicked=false;
+        currentlyReadingBooksLabelClicked=false;
+        readBooksLabelClicked=false">All ({{allUserBooks?.length}})</p>
+    <p style="padding-left: 25rem;color:#00635d; cursor: pointer;"
+       (click)="wantToReadBooksLabelClicked=true;
+        currentlyReadingBooksLabelClicked=false;
+        readBooksLabelClicked=false;
+        allBooksLabelClicked=false">Want to Read ({{userWantToRead?.length}})</p>
+    <p style="padding-left: 25rem;color:#00635d; cursor: pointer;"
+       (click)="currentlyReadingBooksLabelClicked=true;
+        wantToReadBooksLabelClicked=false;
+        readBooksLabelClicked=false;allBooksLabelClicked=false">Currently Reading ({{userCurrentlyReading?.length}})</p>
+    <p style="padding-left: 25rem;color:#00635d; cursor: pointer"
+       (click)="readBooksLabelClicked=true;
+        wantToReadBooksLabelClicked=false;
+        currentlyReadingBooksLabelClicked=false;
+allBooksLabelClicked=false">Read ({{userRead?.length}})  </p>
+  </div>
+  <div class="books" style="width: auto;">
+  <label style="margin-left: 3.5rem;margin-top: 2rem;">Cover</label>
+  <label style="margin-left: 5rem;margin-top: 2rem;">Title/Genre</label>
+  <label style="margin-left: 8rem;margin-top: 2rem;">Author</label>
+  <label style="margin-left: 9rem;margin-top: 2rem;">Rating</label>
+  <label style="margin-left: 9rem;margin-top: 2rem;">Series</label>
+
+  @if(allBooksLabelClicked==true)
+  {
+  <mat-divider style="--mat-divider-width:0.3rem">-</mat-divider>
+  @for(b of allUserBooks;track b.id)
+  {
+
+    <div style="display: flex;flex-direction: row">
+      <div class="bookCovers" style="display: flex;flex-direction: row;padding-top: 1rem">
+
+        <img priority routerLink="/book-details/{{b.id}}" ngSrc="https://localhost:7162/BookCover?id={{b.id}}" width="150" height="220" alt="">
+
+      </div>
+      <div class="bookInfo" style="width: 10rem">
+        <p style="padding-top: 1rem;color: #00635d;padding-left: 1rem">{{ b.title }}</p>
+        <p style="color: #00635d;padding-left: 1rem">{{ b.genre }}</p>
+
+      </div>
+      <div style="padding-left: 2rem;padding-top: 1rem;">
+        <p style="color: #00635d;">{{ b.author }}</p>
+      </div>
+      <div style="padding-left: 7rem;padding-top: 1rem">
+        <p style="color: #00635d">{{b.rating}} </p>
+      </div>
+      <div style="padding-left: 6.5rem;padding-top: 1rem">
+        <p style="color: #00635d">{{b.series}} </p>
+      </div>
+    </div>
+    <mat-divider style="margin-left: 40rem;margin-top: 1rem;margin-right: 30rem;">-</mat-divider>
+  }
+  }
+  @if(wantToReadBooksLabelClicked==true)
+  {
+  <mat-divider style="--mat-divider-width:0.3rem">-</mat-divider>
+  @for(b of userWantToRead;track b.id)
+  {
+
+    <div style="display: flex;flex-direction: row;">
+      <div class="bookCovers" style="display: flex;flex-direction: row;padding-top: 1rem">
+
+        <img priority routerLink="/book-details/{{b.id}}" ngSrc="https://localhost:7162/BookCover?id={{b.id}}" width="150" height="220" alt="">
+
+      </div>
+      <div class="bookInfo" style="width: 10rem">
+        <p style="padding-top: 1rem;color: #00635d;padding-left: 1rem">{{ b.title }}</p>
+        <p style="color: #00635d;padding-left: 1rem">{{ b.genre }}</p>
+
+      </div>
+      <div style="padding-left: 2rem;padding-top: 1rem;">
+        <p style="color: #00635d;">{{ b.author }}</p>
+      </div>
+      <div style="padding-left: 7rem;padding-top: 1rem">
+        <p style="color: #00635d">{{b.rating}} </p>
+      </div>
+      <div style="padding-left: 6.5rem;padding-top: 1rem">
+        <p style="color: #00635d">{{b.series}} </p>
+      </div>
+    </div>
+    <mat-divider style="margin-left: 40rem;margin-top: 1rem;margin-right: 30rem;">-</mat-divider>
+  }
+  }
+  @if(currentlyReadingBooksLabelClicked==true)
+  {
+    <mat-divider style="--mat-divider-width:0.3rem">-</mat-divider>
+    @for(b of userCurrentlyReading;track b.id)
+    {
+
+      <div style="display: flex;flex-direction: row;">
+        <div class="bookCovers" style="display: flex;flex-direction: row;padding-top: 1rem">
+
+          <img priority routerLink="/book-details/{{b.id}}" ngSrc="https://localhost:7162/BookCover?id={{b.id}}" width="150" height="220" alt="">
+
+        </div>
+        <div class="bookInfo" style="width: 10rem">
+          <p style="padding-top: 1rem;color: #00635d;padding-left: 1rem">{{ b.title }}</p>
+          <p style="color: #00635d;padding-left: 1rem">{{ b.genre }}</p>
+
+        </div>
+        <div style="padding-left: 2rem;padding-top: 1rem;">
+          <p style="color: #00635d;">{{ b.author }}</p>
+        </div>
+        <div style="padding-left: 7rem;padding-top: 1rem">
+          <p style="color: #00635d">{{b.rating}} </p>
+        </div>
+        <div style="padding-left: 6.5rem;padding-top: 1rem">
+          <p style="color: #00635d">{{b.series}} </p>
+        </div>
+      </div>
+      <mat-divider style="margin-left: 40rem;margin-top: 1rem;margin-right: 30rem;">-</mat-divider>
+    }
+  }
+  @if(readBooksLabelClicked==true)
+  {
+    <mat-divider style="--mat-divider-width:0.3rem">-</mat-divider>
+    @for(b of userRead;track b.id)
+    {
+
+      <div style="display: flex;flex-direction: row;">
+        <div class="bookCovers" style="display: flex;flex-direction: row;padding-top: 1rem">
+
+          <img priority routerLink="/book-details/{{b.id}}" ngSrc="https://localhost:7162/BookCover?id={{b.id}}" width="150" height="220" alt="">
+
+        </div>
+        <div class="bookInfo" style="width: 10rem">
+          <p style="padding-top: 1rem;color: #00635d;padding-left: 1rem">{{ b.title }}</p>
+          <p style="color: #00635d;padding-left: 1rem">{{ b.genre }}</p>
+
+        </div>
+        <div style="padding-left: 2rem;padding-top: 1rem;">
+          <p style="color: #00635d;width: 6rem">{{ b.author }}</p>
+        </div>
+        <div style="padding-left: 7rem;padding-top: 1rem">
+          <p style="color: #00635d">{{b.rating}} </p>
+        </div>
+        <div style="padding-left: 6.5rem;padding-top: 1rem">
+          <p style="color: #00635d">{{b.series}} </p>
+        </div>
+      </div>
+      <mat-divider style="margin-left: 40rem;margin-top: 1rem;margin-right: 30rem;">-</mat-divider>
+    }
+  }
+    </div>
+  </div>
+</div>
+

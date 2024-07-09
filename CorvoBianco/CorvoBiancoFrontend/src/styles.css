@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family:Lato, "Helvetica Neue", "Helvetica", sans-serif; }
+.owl-stage {
+
+  display: flex;
+  flex-direction: row;
+}
+.owl-theme .owl-nav {
+  margin-top: 10px;
+  width: 100%;
+  text-align: center;
+}
+
+.owl-theme .owl-nav [class*="owl-"] {
+  color: black;
+  font-size: 25px;
+  margin: 5px;
+  padding: 4px 7px;
+  background: white;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 3px;
+}

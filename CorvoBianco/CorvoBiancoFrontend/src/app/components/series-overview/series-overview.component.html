@@ -1,0 +1,56 @@
+<ng-container *ngIf="series">
+  <div style="background-color: white"><p
+    style="padding-left: 25rem;padding-top: 1rem;font-family:Copernicus,'Libre Baskerville',Georgia,serif;font-size: x-large;font-weight: bold ">{{ series.seriesName }}
+    saga by {{ author }}</p>
+    <p style="padding-left: 25rem;font-family:Copernicus,'Libre Baskerville',Georgia,serif;">{{ series.books.length }}
+      books</p>
+    <mat-divider style="margin-left: 25rem;margin-right: 25rem">-</mat-divider>
+    @for (seriesBooks of series.books; track seriesBooks.id; let i = $index) {
+
+      <div style="display: flex;flex-direction: row">
+        <div class="bookImage">
+          <p
+            style="padding-left: 25rem;padding-top: 0.5rem;font-family:Copernicus,'Libre Baskerville',Georgia,serif;font-size: medium">
+            Book {{ i + 1 }}</p>
+          <img routerLink="/book-details/{{seriesBooks.id}}" priority ngSrc="https://localhost:7162/BookCover?id={{seriesBooks.id}}" width="200" height="300"
+               alt="BookCover"
+               style="padding-left: 25rem;height: 10rem;width: 7rem;cursor:pointer">
+
+        </div>
+        <div class="bookInfo">
+          <p
+            style="padding-top: 2.5rem;padding-left: 0.5rem;font-family:Copernicus,'Libre Baskerville',Georgia,serif">{{ seriesBooks.title }}</p>
+          <p routerLink="/author-details/{{authorId}}" style="padding-left: 0.5rem;font-family:Copernicus,'Libre Baskerville',Georgia,serif;cursor: pointer;">By {{ author }}</p>
+          <p
+            style="padding-left: 0.5rem;font-family:Copernicus,'Libre Baskerville',Georgia,serif">{{ seriesBooks.rating }}
+            Ratings • {{ seriesBooks.ratingCount }} Reviews • Published: {{ seriesBooks.published | date }}</p>
+
+
+          <p
+            style="padding-left: 0.5rem;font-family:Copernicus,'Libre Baskerville',Georgia,serif;white-space: pre-wrap;
+            width: 50rem" >{{ seriesBooks.description | slice:0:(expandedDescription[i] ? seriesBooks.description.length:50)}}
+
+
+            <span
+              style="cursor: pointer;color: #00635d;background-color: white" (click)="seeMore(i)" >{{expandedDescription[i] ? 'Less' : 'See More'}}</span>
+
+          </p>
+
+
+
+
+          <button mat-raised-button
+                  style="margin-left: 0.5rem;background-color: #409d69;color: white;width: 10rem;height: 2rem;font-family:Copernicus,'Libre Baskerville',Georgia,serif">
+            Want to read
+          </button>
+
+
+        </div>
+      </div>
+      <br>
+      <mat-divider style="margin-left: 25rem;margin-right: 25rem">-</mat-divider>
+
+
+    }</div>
+</ng-container>
+

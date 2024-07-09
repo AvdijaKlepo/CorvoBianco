@@ -1,0 +1,71 @@
+<mat-toolbar style="background-color: white;font-family:Lato,'Helvetica Neue',Helvetica,Arial,sans-serif;font-size: xx-large;font-weight: inherit;
+padding-left: 50rem;line-height: 18px;  border-bottom-style:inset;
+  border-width: 0.1rem;height: 5rem">
+  News and Interviews
+</mat-toolbar>
+
+<div style="display: flex;flex-direction: row;padding-left: 32rem;padding-top: 1rem">
+  @for (a of article.slice(0,1); track a.id) {
+
+    <div class="allHeader" style="font-family:Lato,'Helvetica Neue',Helvetica,sans-serif">
+      <mat-card class="topArticle" routerLink="/article-details/{{a.id}}" style="cursor: pointer;width: 53.7rem">
+
+        <img priority  alt="BigArticleImage" height="368" mat-card-image width="860" ngSrc="https://localhost:7162/ArticleImage?id={{a.id}}"
+             style="cursor: pointer">
+        <mat-card-content>
+          <mat-card-title-group>
+            <mat-card-title>
+              <p style="font-family:Lato,'Helvetica Neue',Helvetica,sans-serif;font-weight:bold">
+                {{a.title}}
+
+              </p>
+              <p style="font-family:Lato,'Helvetica Neue',Helvetica,sans-serif;font-weight: lighter">{{a.articlePreview}} <mark style="background-color: white;color: #00635d">Read more</mark></p>
+            </mat-card-title>
+            <mat-card-subtitle>
+              <p style="font-family:Lato,'Helvetica Neue',Helvetica,sans-serif;font-weight: lighter">Posted {{a.posted | date}}</p>
+            </mat-card-subtitle>
+
+
+
+          </mat-card-title-group>
+        </mat-card-content>
+
+      </mat-card>
+
+    </div>
+  }
+</div>
+
+@for(articles of allArticles.slice(1,article.length);track articles.id)
+{
+  <div>
+    <mat-card style="margin-left: 32rem;margin-top: 2rem;display: flex;flex-direction: row;width: 54rem" routerLink="/article-details/{{articles.id}}">
+
+      <img priority alt="BigArticleImage" height="251" mat-card-image width="380"
+           ngSrc="https://localhost:7162/ArticleImage?id={{articles.id}}"
+           style="cursor: pointer">
+      <div>
+        <mat-card-content>
+          <mat-card-title-group>
+            <mat-card-title>
+              <p style="font-family:Lato,'Helvetica Neue',Helvetica,sans-serif;font-weight:bold">
+                {{ articles.title }}
+
+              </p>
+              <p
+                style="font-family:Lato,'Helvetica Neue',Helvetica,sans-serif;font-weight: lighter;font-size: smaller">{{ articles.articlePreview }}
+                <mark style="background-color: white;color: #00635d;font-size: smaller">Read more</mark>
+              </p>
+            </mat-card-title>
+            <mat-card-subtitle>
+              <p style="font-family:Lato,'Helvetica Neue',Helvetica,sans-serif;font-weight: lighter">
+                Posted {{ articles.posted | date }}</p>
+            </mat-card-subtitle>
+
+
+          </mat-card-title-group>
+        </mat-card-content>
+      </div>
+    </mat-card>
+  </div>
+}

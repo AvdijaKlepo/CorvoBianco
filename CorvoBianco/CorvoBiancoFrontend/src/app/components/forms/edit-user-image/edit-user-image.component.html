@@ -1,0 +1,38 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <h1 mat-dialog-title> Edit User Profile</h1>
+  <div mat-dialog-content style="display:flex;flex-direction: column;width: 25rem">
+    <mat-label>Article Image</mat-label>
+    <input id="userImage-input" type="file" accept="image/*" (change)="generate_preview()" formControlName="profileImage">
+    <img priority ngSrc="{{data.profileImage}}" width="100" height="150" alt="bookCoverEdit">
+
+    <mat-form-field style="width: 0;height: 0" >
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name">
+    </mat-form-field>
+    <mat-form-field style="width: 0;height: 0">
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="lastName">
+    </mat-form-field>
+    <mat-form-field style="width: 0;height: 0">
+      <mat-label>Birth Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="birthDate">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field style="width: 0;height: 0">
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username">
+    </mat-form-field>
+    <mat-form-field style="width: 0;height: 0">
+      <mat-label>Password</mat-label>
+      <input matInput formControlName="password">
+    </mat-form-field>
+
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button (click)="closeEditProfileImageDialog()" >Cancel</button>
+    <button mat-raised-button type="submit">Edit User Info</button>
+  </div>
+</form>
+

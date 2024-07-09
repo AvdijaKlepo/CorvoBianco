@@ -1,0 +1,30 @@
+.bookDetails
+{
+  display: flex;
+  flex-direction: row;
+}
+
+.bookCover
+{
+  padding:1rem;
+  margin-inline: 22rem;
+  border-bottom-right-radius: 5%;
+  border-top-right-radius: 5%;
+
+}
+.detailButtons
+{
+  display: flex;
+  flex-direction: column;
+  width: 17rem;
+  margin-inline: -2rem;
+}
+.bookInfo
+{
+  margin-inline: -15rem;
+  padding-top: 1rem;
+
+}
+
+
+

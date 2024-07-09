@@ -1,0 +1,12 @@
+.Authors
+{
+  margin-left:19rem;
+  display:inline-flex;
+}
+.cardAuthor
+{
+  margin:1rem;
+  background-color:#F4F1EA;
+  border-bottom-right-radius: 5%;
+  border-top-right-radius: 5%;
+}

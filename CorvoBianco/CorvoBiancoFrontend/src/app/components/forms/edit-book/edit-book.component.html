@@ -1,0 +1,71 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <h1 mat-dialog-title style="font-family:Lato,'Helvetica Neue',Helvetica,sans-serif"> Edit: {{data.title}}</h1>
+  <div mat-dialog-content style="display:flex;flex-direction: column;width: 25rem">
+    <mat-form-field style="width: 20rem;font-family:Lato,'Helvetica Neue',Helvetica,sans-serif">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" [value]="data.title">
+    </mat-form-field>
+    <mat-label style="font-size: smaller;color: darkred;font-family:Lato,'Helvetica Neue',Helvetica,sans-serif">Required field</mat-label>
+    <mat-form-field style="width: 20rem;font-family:Lato,'Helvetica Neue',Helvetica,sans-serif">
+
+      <mat-label style="font-family:Lato,'Helvetica Neue',Helvetica,sans-serif">{{data.author}}</mat-label>
+      <mat-select  formControlName="authorId">
+        @for (author of authors; track author.id) {
+          <mat-option [value]="author.id" style="font-family:Lato,'Helvetica Neue',Helvetica,sans-serif">{{author.firstName}} {{author.lastName}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-label style="font-size: smaller;color: darkred; font-family:Lato,'Helvetica Neue',Helvetica,sans-serif">Required field</mat-label>
+
+    <mat-form-field style="width: 20rem; font-family:Lato,'Helvetica Neue',Helvetica,sans-serif">
+      <mat-label>{{data.series}}</mat-label>
+      <mat-select formControlName="series">
+        @for(serial of series; track serial.seriesName){
+          <mat-option  [value]="serial.id">{{serial.seriesName}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field style="width: 20rem; font-family:Lato,'Helvetica Neue',Helvetica,sans-serif">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
+
+    <mat-form-field style="width: 20rem; font-family:Lato,'Helvetica Neue',Helvetica,sans-serif">
+      <mat-label>Page Count</mat-label>
+      <input matInput formControlName="pageCount">
+    </mat-form-field>
+
+    <mat-label style="font-size: smaller;color: darkred; font-family:Lato,'Helvetica Neue',Helvetica,sans-serif">Required field</mat-label>
+
+    <mat-form-field style="width: 20rem; font-family:Lato,'Helvetica Neue',Helvetica,sans-serif">
+      <mat-label>{{data.genres}}</mat-label>
+      <mat-select formControlName="genreId" >
+        @for(genre of genres; track genre.id){
+          <mat-option  [value]="genre.id" style="">{{genre.genre}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field style="width: 20rem; font-family:Lato,'Helvetica Neue',Helvetica,sans-serif">
+      <mat-label>Published</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="published">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+
+
+
+
+
+
+
+  </div>
+  <div mat-dialog-actions >
+    <button mat-raised-button style="font-family:Lato,'Helvetica Neue',Helvetica,sans-serif" (click)="closeAddBookDialog()">Cancel</button>
+    <button mat-raised-button style="font-family:Lato,'Helvetica Neue',Helvetica,sans-serif" type="submit">Edit Book</button>
+  </div>
+</form>

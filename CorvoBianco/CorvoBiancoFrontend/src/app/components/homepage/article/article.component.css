@@ -1,0 +1,32 @@
+.topArticle
+{
+  margin-left:5.5rem;
+  background-color:#F4F1EA;
+  width:53.8rem;
+  margin-top: 1rem;
+}
+.allHeader
+{
+  margin-top:1rem;
+  margin-left: 15rem;
+
+}
+.ThreeArticleLinks
+{
+  display:flex;
+  flex-direction: column;
+  padding-left:1rem;
+  padding-top:9rem;
+}
+a
+{
+  text-decoration:none;
+  color:black;
+  font-size:x-large;
+  padding-top:3rem;
+  width:27rem;
+}
+a:hover
+{
+  text-decoration:underline;
+}

@@ -1,0 +1,56 @@
+
+.user-book
+{
+  padding-left: 22rem;
+
+}
+.star-rating {
+  display: inline-block;
+}
+
+.star-rating .filled {
+  color: gold;
+}
+
+.star-rating span {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.carousel-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  right: 39%;
+}
+
+.carousel {
+  display: flex;
+  transition: transform 0.5s;
+}
+
+.carousel-item {
+  min-width: 100%;
+  box-sizing: border-box;
+}
+
+.carousel-buttons {
+  margin-left: 28rem;
+}
+
+.carousel-button {
+  background-color: #f9f7f4;
+  color: black;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  margin: 0 1rem;
+  font-size: 1.5rem;
+}
+
+.carousel-button:focus {
+  outline: none;
+}
+
+.carousel-button:hover {
+
+}

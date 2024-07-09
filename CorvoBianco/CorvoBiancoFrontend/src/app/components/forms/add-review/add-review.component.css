@@ -1,0 +1,29 @@
+.star-rating {
+  font-size: 2em;
+
+  padding-top: 1rem;
+  padding-left: 2rem;
+  color: #d3d3d3;
+  cursor: pointer;
+}
+.star-rating .fa {
+  cursor: pointer;
+  padding: 0.1rem;
+}
+.star-rating .fa-star {
+  color: #ffd055;
+
+}
+.star-rating .fa-star-o  {
+  color: #ddd;
+}
+
+.star-rating span {
+  cursor: pointer;
+  font-size: 2rem;
+}
+
+.star-rating .filled {
+  color: gold;
+}
+

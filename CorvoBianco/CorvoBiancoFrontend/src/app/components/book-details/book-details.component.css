@@ -1,0 +1,155 @@
+.bookDetails
+{
+  display: flex;
+  flex-direction: row;
+}
+
+.bookCover
+{
+  padding:1rem;
+  margin-inline: 22rem;
+  border-bottom-right-radius: 5%;
+  border-top-right-radius: 5%;
+  position: fixed;
+  z-index: 10;
+
+
+}
+.detailButtons
+{
+  display: flex;
+  flex-direction: column;
+  width: 17rem;
+  margin-inline: -2rem;
+}
+.bookInfo
+{
+  margin-inline: 44rem;
+  padding-top: 1rem;
+  font-family:Copernicus,"Libre Baskerville",Georgia,serif;
+
+
+}
+.bookSeries:hover
+{
+  text-decoration: underline;
+}
+
+.carousel-container {
+  background-color: #f9f7f4;
+  font-family: Lato, 'Helvetica Neue', Helvetica, sans-serif;
+}
+
+.carousel-header {
+  display: flex;
+  padding-top: 2rem;
+  margin-left: 20rem;
+}
+
+.carousel-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  right: 2%;
+}
+
+.carousel-inner {
+  margin-left: -19rem; /* Shift content left to hide within overflow */
+  margin-right: -30rem; /* Shift content right to hide within overflow */
+  padding-left: 19rem; /* Add padding to align content correctly */
+  padding-right: 30rem; /* Add padding to align content correctly */
+
+}
+
+.cardBook {
+  margin: 1rem;
+  background-color: white;
+  height: 30rem;
+  overflow: hidden;
+  width: 13rem;
+  box-shadow: none;
+  border-top-left-radius: 5%;
+  border-bottom-left-radius: 5%;
+}
+
+.cardBook img {
+  width: 100%;
+  height: 19rem;
+  border-top-left-radius: 5%;
+  border-bottom-left-radius: 5%;
+}
+
+.cardBook-content {
+  padding-top: 1rem;
+  font-size: larger;
+
+}
+
+.cardBook-actions {
+  display: flex;
+  align-items: center;
+}
+
+.cardBook-rating {
+  display: flex;
+  align-items: center;
+  padding-top: 0.2rem;
+}
+
+.cardBook-rating mat-icon {
+  margin-right: 0.5rem;
+}
+
+
+.cardBook-link{
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+}
+.owl-theme .owl-nav {
+  margin-top: 10px;
+  width: 100%;
+  padding-left: 30rem;
+}
+
+.owl-theme .owl-nav [class*="owl-"] {
+  color: black;
+  font-size: 25px;
+  margin: 5px;
+  padding: 4px 7px;
+  background: white;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 3px;
+}
+.star-rating {
+  font-size: 2em;
+
+  padding-top: 1rem;
+  padding-left: 2rem;
+  color: #d3d3d3;
+  cursor: pointer;
+}
+.star-rating .fa {
+  cursor: pointer;
+  padding: 0.1rem;
+}
+.star-rating .fa-star {
+  color: #ffd055;
+
+}
+.star-rating .fa-star-o  {
+  color: #ddd;
+}
+
+.star-rating span {
+  cursor: pointer;
+  font-size: 2rem;
+}
+
+.star-rating .filled {
+  color: gold;
+}
+
+
+

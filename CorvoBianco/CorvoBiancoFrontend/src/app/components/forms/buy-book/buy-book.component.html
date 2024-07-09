@@ -1,0 +1,35 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <h1 mat-dialog-title> Buy: {{data.title}}</h1>
+  <div mat-dialog-content style="display:flex;flex-direction: column;width: 25rem">
+    <mat-form-field style="width: 20rem">
+      <mat-label>Cardholder Name</mat-label>
+      <input matInput formControlName="cardholderName">
+    </mat-form-field>
+    <mat-form-field style="width: 20rem">
+      <mat-label>Card Type</mat-label>
+      <input matInput formControlName="cardType">
+    </mat-form-field>
+
+    <mat-form-field style="width: 20rem">
+      <mat-label>Last 4 Digits</mat-label>
+      <textarea matInput formControlName="last4Digits"></textarea>
+    </mat-form-field>
+    <mat-form-field style="width: 20rem">
+      <mat-label>Expiration Date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="expirationDate">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field style="width: 20rem">
+      <mat-label>Card Token</mat-label>
+      <textarea matInput formControlName="cardToken"></textarea>
+    </mat-form-field>
+
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button (click)="closeBuyBookDialog()" >Cancel</button>
+    <button mat-raised-button type="submit">Proceed to checkout</button>
+  </div>
+</form>

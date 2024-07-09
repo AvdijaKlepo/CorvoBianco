@@ -1,0 +1,36 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <h1 mat-dialog-title> Add New Book</h1>
+  <div mat-dialog-content style="display:flex;flex-direction: column;width: 25rem">
+
+    <mat-label>Article Image</mat-label>
+    <input id="authorImage-input" type="file" accept="image/*" (change)="generate_preview()" formControlName="profilePicture">
+    <img priority ngSrc="{{data.profilePicture}}" width="100" height="150" alt="bookCoverEdit">
+    <mat-form-field style="width: 0;height: 0">
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="firstName">
+    </mat-form-field>
+    <mat-form-field style="width: 0;height: 0">
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="lastName">
+    </mat-form-field>
+    <mat-form-field style="width: 0;height: 0">
+      <mat-label>Born</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="born">
+      <mat-hint hidden="">MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field style="width: 0;height: 0">
+      <mat-label>Biography</mat-label>
+      <textarea matInput formControlName="bio"></textarea>
+    </mat-form-field>
+
+
+
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button (click)="closeAddAuthorDialog()" >Cancel</button>
+    <button mat-raised-button type="submit">Add Author</button>
+  </div>
+</form>
+

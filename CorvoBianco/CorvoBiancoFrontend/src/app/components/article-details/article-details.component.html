@@ -1,0 +1,52 @@
+@if(articleDetail)
+{
+
+  <ng-container>
+
+    <div class="article" style="font-family:Lato,'Helvetica Neue',Helvetica,sans-serif">
+
+      <mat-menu #menu="matMenu">
+        <div style="display: flex;flex-direction: column;">
+          <button mat-raised-button style="margin-top: 1rem;background-color: #F4F1EA"
+                  (click)="openAddBookCoverDialog(articleDetail)">Edit Article Information
+          </button>
+          <button mat-raised-button style="margin-top: 1rem;background-color: #F4F1EA" (click)="openEditArticleImage()">
+            Edit
+            Article Image
+          </button>
+        </div>
+      </mat-menu>
+      <h1 style="padding-top: 1rem;font-family:Lato,'Helvetica Neue',Helvetica,sans-serif">{{ articleDetail.title }}</h1>
+      <h2 style="font-weight: lighter;font-family:Lato,'Helvetica Neue',Helvetica,sans-serif">Posted: {{ articleDetail.posted |date }}</h2>
+
+      <img ngSrc="https://localhost:7162/ArticleImage?id={{articleDetail.id}}" width="860" height="368" alt="articleImage" [matMenuTriggerFor]="menu" #menuTrigger>
+      <p style="width: 101%;font-size: larger;white-space: pre-wrap;font-family:Lato,'Helvetica Neue',Helvetica,sans-serif">{{ articleDetail.articleDescription }}</p>
+    </div>
+  </ng-container>
+}
+
+@if(articleDetail)
+{
+  @for(aD of articleDetail.books; track aD.id)
+  {
+    <ng-container>
+
+      <div class="bookCover" style="display:flex; flex-direction: row;padding-left: 33rem;padding-top: 2rem">
+        <div routerLink="/book-details/{{aD.id}}">
+          <img ngSrc="https://localhost:7162/BookCover?id={{aD.id}}" width="170" height="250" alt="bookCover">
+        </div>
+
+        <div style="margin-left: 1rem">
+          <h2 style="font-weight: bold;font-family:Lato,'Helvetica Neue',Helvetica,sans-serif">{{ aD.title }}</h2>
+          <h2 style="font-weight: lighter;font-family:Lato,'Helvetica Neue',Helvetica,sans-serif">{{ aD.author }}</h2>
+          <h2 style="font-weight: lighter;font-size: medium;width: 70%;font-family:Lato,'Helvetica Neue',Helvetica,sans-serif">{{ aD.description.slice(0,500) }}...</h2>
+          <h2 style="font-weight: lighter;font-family:Lato,'Helvetica Neue',Helvetica,sans-serif" routerLink="/book-details/{{aD.id}}">See more</h2>
+
+        </div>
+      </div>
+
+
+
+    </ng-container>
+  }
+}

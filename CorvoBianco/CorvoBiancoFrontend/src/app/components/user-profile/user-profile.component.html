@@ -1,0 +1,184 @@
+@if(userDetails )
+{
+  <div style="display: flex;flex-direction: row;justify-content: center;font-family: 'Century Gothic',serif">
+    <div style="padding-left: 27rem;padding-top: 3rem">
+      <span style="font-size: large;font-weight: bold">{{userDetails.name}} Reviews</span>
+      <mat-divider style="width: 38rem"></mat-divider>
+      @for (review of reviews; track review.id) {
+        @if (review.user.id == userDetails.id) {
+
+
+          <div
+            style="width: 41rem;height: 30rem;background-color: white;margin-top: 1rem;font-family: 'Century Gothic',serif;position: relative">
+            <div style="display: flex;flex-direction: row">
+              <div class="userImage"
+                   style="padding-top: 1rem;position: absolute; left: -15px; transform: translateX(-20%);">
+                <img ngSrc="https://localhost:7162/GetUserImage?id={{review.user.id}}" alt="userImage" width="50"
+                     height="50" style="border-style: solid;border-radius: 100%;border-width: 0.1rem">
+              </div>
+              <div>
+                <p style="font-weight: bold;padding-left: 2rem;padding-top: 2rem">{{ review.user.name }}
+                  <mark style="background-color: white;color: black;font-weight: lighter">reviewed</mark>
+                  {{ review.book.title }} ({{ review.bookSeries }})
+                </p>
+                <div class="star-rating" style="padding-left: 2rem">
+                  <ng-container *ngFor="let star of stars; let i = index">
+                    <span [class.filled]="i < review.rating">&#9733;</span>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+            <p style="padding-left: 2rem">{{ review.rating }}/5 stars</p>
+            <p style="padding-left: 2rem">{{ review.review }}</p>
+            <div
+              style="margin: 1.5rem;border-style: solid;border-width: 0.1rem;border-color: grey;display: flex;flex-direction: row">
+              <div>
+                <img style="padding-top: 1rem;padding-bottom: 1rem;padding-left: 1rem"
+                   routerLink="/book-details/{{review.book.id}}"  ngSrc="https://localhost:7162/BookCover?id={{review.book.id}}" alt="" width="130" height="200">
+              </div>
+              <div style="padding-left: 1rem">
+                <p style="padding-top: 1rem">{{ review.book.title }} ({{ review.bookSeries }})</p>
+                <p>{{ review.authorName }}</p>
+                <p>{{ review.book.description.slice(0, 270) }}...</p>
+              </div>
+            </div>
+            @if(review.user.id==userId || service.isAdmin())
+            {
+            <button mat-raised-button style="margin-left: 1rem" (click)="deleteReview(review.user.id,review.book.id)">
+              Delete Review
+            </button>
+            }
+          </div>
+          <mat-divider></mat-divider>
+        }
+      }
+    </div>
+    <div style="padding-top: 1rem;display: flex;flex-direction: row">
+      <div>
+        <img priority ngSrc="https://localhost:7162/GetUserImage?id={{userDetails.id}}" style="border-radius: 100%;margin-right: 2rem"
+             alt="userImage" width="100" height="100" (click)="openEditImageDialog()">
+      </div>
+      <div style="padding-left: 1rem">
+
+        <h1>{{ userDetails.name }}
+          @if(userId==userDetails.id)
+          {
+          <mark style="background-color: white;color: #00635d;font-size: small" (click)="openDialog()">Edit profile
+          </mark>
+          }
+        </h1>
+
+        <mat-divider style="width:35rem"></mat-divider>
+        <h3>Name: {{ userDetails.name }} {{ userDetails.lastName }}</h3>
+        <h3>Birthday: {{ userDetails.birthDate | date }} </h3>
+        <mat-divider style="width: 35rem"></mat-divider>
+        <h3>{{ userDetails.name }} Favourite books.</h3>
+        @for (reviews of reviews; track reviews.id) {
+
+          @if (reviews.rating == 5 && reviews.user.id == userDetails.id) {
+
+
+            <img priority routerLink="/book-details/{{reviews.book.id}}"
+                 ngSrc="https://localhost:7162/BookCover?id={{reviews.book.id}}" width="150" height="220" alt="">
+
+
+          }
+        }
+
+
+
+
+
+        <mat-divider style="width: 55rem"></mat-divider>
+        <h3>Book's read by {{ userDetails.name }}</h3>
+        @for (b of userRead; track b.id) {
+
+          <div style="display: flex;flex-direction: row;">
+            <div class="bookCovers" style="display: flex;flex-direction: row;padding-top: 1rem">
+
+              <img priority routerLink="/book-details/{{b.id}}" ngSrc="https://localhost:7162/BookCover?id={{b.id}}"
+                   width="150" height="220" alt="">
+
+            </div>
+            <div class="bookInfo" style="width: 10rem">
+              <p style="padding-top: 1rem;color: #00635d;padding-left: 1rem">{{ b.title }}</p>
+              <p style="color: #00635d;padding-left: 1rem">{{ b.genre }}</p>
+
+            </div>
+            <div style="padding-left: 2rem;padding-top: 1rem;">
+              <p style="color: #00635d;width: 6rem">{{ b.author }}</p>
+            </div>
+            <div style="padding-left: 7rem;padding-top: 1rem">
+              <p style="color: #00635d">{{ b.rating }} </p>
+            </div>
+            <div style="padding-left: 6.5rem;padding-top: 1rem">
+              <p style="color: #00635d">{{ b.series }} </p>
+            </div>
+          </div>
+          <mat-divider style="margin-left: 40rem;margin-top: 1rem;margin-right: 30rem;">-</mat-divider>
+        }
+        <h3>Book's {{ userDetails.name }} currently reading</h3>
+        <mat-divider style="width: 55rem"></mat-divider>
+
+
+        @for (b of userCurrentlyReading; track b.id) {
+
+          <div style="display: flex;flex-direction: row;">
+            <div class="bookCovers" style="display: flex;flex-direction: row;padding-top: 1rem">
+
+              <img priority routerLink="/book-details/{{b.id}}" ngSrc="https://localhost:7162/BookCover?id={{b.id}}"
+                   width="150" height="220" alt="">
+
+            </div>
+            <div class="bookInfo" style="width: 10rem">
+              <p style="padding-top: 1rem;color: #00635d;padding-left: 1rem">{{ b.title }}</p>
+              <p style="color: #00635d;padding-left: 1rem">{{ b.genre }}</p>
+
+            </div>
+            <div style="padding-left: 2rem;padding-top: 1rem;">
+              <p style="color: #00635d;width: 6rem">{{ b.author }}</p>
+            </div>
+            <div style="padding-left: 7rem;padding-top: 1rem">
+              <p style="color: #00635d">{{ b.rating }} </p>
+            </div>
+            <div style="padding-left: 6.5rem;padding-top: 1rem">
+              <p style="color: #00635d">{{ b.series }} </p>
+            </div>
+          </div>
+          <mat-divider style="margin-left: 40rem;margin-top: 1rem;margin-right: 30rem;">-</mat-divider>
+        }
+        <h3>Book's {{ userDetails.name }} read</h3>
+        <mat-divider style="width: 55rem"></mat-divider>
+
+
+        @for (b of userWantToRead; track b.id) {
+
+          <div style="display: flex;flex-direction: row;">
+            <div class="bookCovers" style="display: flex;flex-direction: row;padding-top: 1rem">
+
+              <img priority routerLink="/book-details/{{b.id}}" ngSrc="https://localhost:7162/BookCover?id={{b.id}}"
+                   width="150" height="220" alt="">
+
+            </div>
+            <div class="bookInfo" style="width: 10rem">
+              <p style="padding-top: 1rem;color: #00635d;padding-left: 1rem">{{ b.title }}</p>
+              <p style="color: #00635d;padding-left: 1rem">{{ b.genre }}</p>
+
+            </div>
+            <div style="padding-left: 2rem;padding-top: 1rem;">
+              <p style="color: #00635d;width: 6rem">{{ b.author }}</p>
+            </div>
+            <div style="padding-left: 7rem;padding-top: 1rem">
+              <p style="color: #00635d">{{ b.rating }} </p>
+            </div>
+            <div style="padding-left: 6.5rem;padding-top: 1rem">
+              <p style="color: #00635d">{{ b.series }} </p>
+            </div>
+          </div>
+          <mat-divider style="margin-left: 40rem;margin-top: 1rem;margin-right: 30rem;">-</mat-divider>
+        }
+      </div>
+    </div>
+  </div>
+    }
+

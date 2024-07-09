@@ -1,0 +1,39 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div style="display: flex;flex-direction: row">
+    <div>
+      <img priority ngSrc="https://localhost:7162/BookCover?id={{data.id}}" width="100" height="150" alt="bookCover"
+            style="padding-left: 2rem;padding-top: 2rem">
+    </div>
+    <div style="display: flex;flex-direction: column">
+      <div>
+        <h1 mat-dialog-title style="font-family:Lato,'Helvetica Neue',Helvetica,sans-serif"> {{ data.title }}
+          ({{ data.series }})</h1>
+        <h1 mat-dialog-title style="font-family:Lato,'Helvetica Neue',Helvetica,sans-serif">By {{ data.author }}</h1>
+      </div>
+      <div class="star-rating">
+        <ng-container *ngFor="let star of stars; let i = index">
+          <span [class.filled]="star">&#9733;</span>
+        </ng-container>
+
+      </div>
+    </div>
+  </div>
+
+  <div mat-dialog-content style="display:flex;flex-direction: column;width: 25rem">
+   <label for="review">What did you think?</label>
+    <mat-form-field style="width: 20rem">
+
+      <mat-label id="review">Review</mat-label>
+      <textarea rows="10" cols="10" matInput formControlName="review"></textarea>
+    </mat-form-field>
+
+
+
+
+  </div>
+  <div mat-dialog-actions >
+    <button mat-raised-button style="font-family:Lato,'Helvetica Neue',Helvetica,sans-serif" (click)="closeAddBookDialog()">Leave no Review</button>
+    <button mat-raised-button style="font-family:Lato,'Helvetica Neue',Helvetica,sans-serif" type="submit">Post</button>
+  </div>
+</form>
+

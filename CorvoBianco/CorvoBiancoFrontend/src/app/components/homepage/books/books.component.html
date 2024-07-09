@@ -1,0 +1,165 @@
+<div class="carousel-container">
+  <div class="carousel-header">
+    <h1>Historical Fiction</h1>
+  </div>
+
+  <div class="carousel-wrapper">
+    <div class="carousel-inner">
+      <owl-carousel-o [options]="customOptions">
+        @for (b of books;track b.id)
+        {
+          @if(b.genre=="Historical Fiction")
+          {
+            <ng-template carouselSlide [width]="240">
+              <mat-card class="cardBook">
+                <a [routerLink]="'/book-details/' + b.id" class="cardBook-link">
+                  <img mat-card-xl-image ngSrc="https://localhost:7162/BookCover?id={{b.id}}" alt="bookCover" width="100" height="100">
+                  <mat-card-content class="cardBook-content">
+                    <p>{{ b.title }}</p>
+                    <p>{{ b.author }}</p>
+                    <div class="cardBook-rating">
+                      <mat-icon>star</mat-icon>
+                      <p>{{ b.rating }} • {{ b.ratingCount }}</p>
+                    </div>
+                  </mat-card-content>
+                </a>
+                <button mat-raised-button class="cardBook-delete" (click)="DeleteBook(b.id)">Delete</button>
+              </mat-card>
+            </ng-template>
+          }
+        }
+      </owl-carousel-o>
+    </div>
+  </div>
+
+  <div class="carousel-header">
+    <h1>Classic's</h1>
+  </div>
+
+  <div class="carousel-wrapper">
+    <div class="carousel-inner">
+      <owl-carousel-o [options]="customOptions">
+        @for (b of books;track b.id)
+        {
+          @if(b.genre=="Classic")
+          {
+            <ng-template carouselSlide [width]="240">
+              <mat-card class="cardBook">
+                <a [routerLink]="'/book-details/' + b.id" class="cardBook-link">
+                  <img mat-card-xl-image ngSrc="https://localhost:7162/BookCover?id={{b.id}}" alt="bookCover" width="100" height="100">
+                  <mat-card-content class="cardBook-content">
+                    <p>{{ b.title }}</p>
+                    <p>{{ b.author }}</p>
+                    <div class="cardBook-rating">
+                      <mat-icon>star</mat-icon>
+                      <p>{{ b.rating }} • {{ b.ratingCount }}</p>
+                    </div>
+                  </mat-card-content>
+                </a>
+                <button mat-raised-button class="cardBook-delete" (click)="DeleteBook(b.id)">Delete</button>
+              </mat-card>
+            </ng-template>
+          }
+        }
+      </owl-carousel-o>
+    </div>
+  </div>
+
+
+
+
+  <div class="carousel-header">
+    <h1>Science Fiction</h1>
+  </div>
+
+  <div class="carousel-wrapper">
+    <div class="carousel-inner">
+      <owl-carousel-o [options]="customOptions">
+        @for (b of books;track b.id)
+        {
+          @if(b.genre=="Science Fiction")
+          {
+            <ng-template carouselSlide [width]="240">
+              <mat-card class="cardBook">
+                <a [routerLink]="'/book-details/' + b.id" class="cardBook-link">
+                  <img mat-card-xl-image ngSrc="https://localhost:7162/BookCover?id={{b.id}}" alt="bookCover" width="100" height="100">
+                  <mat-card-content class="cardBook-content">
+                    <p>{{ b.title }}</p>
+                    <p>{{ b.author }}</p>
+                    <div class="cardBook-rating">
+                      <mat-icon>star</mat-icon>
+                      <p>{{ b.rating }} • {{ b.ratingCount }}</p>
+                    </div>
+                  </mat-card-content>
+                </a>
+                <button mat-raised-button class="cardBook-delete" (click)="DeleteBook(b.id)">Delete</button>
+              </mat-card>
+            </ng-template>
+          }
+        }
+      </owl-carousel-o>
+    </div>
+  </div>
+
+  <div class="carousel-header">
+    <h1>Fantasy</h1>
+  </div>
+
+  <div class="carousel-wrapper">
+    <div class="carousel-inner">
+      <owl-carousel-o [options]="customOptions">
+        @for (b of books;track b.id)
+        {
+          @if(b.genre=="Fantasy")
+          {
+            <ng-template carouselSlide [width]="240">
+              <mat-card class="cardBook">
+                <a [routerLink]="'/book-details/' + b.id" class="cardBook-link">
+                  <img mat-card-xl-image ngSrc="https://localhost:7162/BookCover?id={{b.id}}" alt="bookCover" width="100" height="100">
+                  <mat-card-content class="cardBook-content">
+                    <p>{{ b.title }}</p>
+                    <p>{{ b.author }}</p>
+                    <div class="cardBook-rating">
+                      <mat-icon>star</mat-icon>
+                      <p>{{ b.rating }} • {{ b.ratingCount }}</p>
+                    </div>
+                  </mat-card-content>
+                </a>
+                <button mat-raised-button class="cardBook-delete" (click)="DeleteBook(b.id)">Delete</button>
+              </mat-card>
+            </ng-template>
+          }
+        }
+      </owl-carousel-o>
+    </div>
+  </div>
+</div>
+
+<div>
+  <h1 style="font-family:Lato,'Helvetica Neue',Helvetica,sans-serif;margin-left:20rem;padding-top: 2rem">News & Interviews</h1>
+  <div class="carousel-wrapper">
+    <div class="carousel-inner">
+    <owl-carousel-o [options]="customOptions2" style="width:69%">
+      @for (a of articles; track a.id)
+      {
+        <ng-container>
+          <ng-template carouselSlide [width]="200">
+
+            <mat-card class="Article1" style="margin:1rem;width: 24rem;border-top-right-radius: 3%;border-top-left-radius: 3%">
+              <img mat-card-image ngSrc="https://localhost:7162/ArticleImage?id={{a.id}}" alt="article" height="260" width="385" style="cursor: pointer;" routerLink="/article-details/{{a.id}}">
+              <mat-card-content style="background-color: #F4F1EA">
+                <p style="padding-top:1rem;font-family:Lato,'Helvetica Neue',Helvetica,sans-serif;font-size: 1.1rem">
+                  {{a.title}}
+                </p>
+                <p style="font-family:Lato,'Helvetica Neue',Helvetica,sans-serif;font-weight: lighter;">{{a.posted | date}}</p>
+              </mat-card-content>
+            </mat-card>
+          </ng-template>
+        </ng-container>
+
+
+      }
+    </owl-carousel-o>
+    </div>
+  </div>
+</div>

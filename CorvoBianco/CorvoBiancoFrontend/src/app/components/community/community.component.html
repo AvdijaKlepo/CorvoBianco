@@ -1,0 +1,161 @@
+<div style="display: flex;flex-direction: row;background-color: #f9f7f4">
+  <div style="display: flex;flex-direction: row;font-family: Lato,'Helvetica Neue',serif">
+    <div class="user-book" style="padding-top: 1rem">
+
+      <span style="font-size: large;padding-top: 0.5rem;font-weight: bold">Currently Reading</span>
+
+      @if (userCurrentlyReading?.length != 0) {
+        <div>
+
+          @for (u of userCurrentlyReading; track u.id) {
+            <div style="display: flex;flex-direction: row">
+              <div>
+                <img routerLink="/book-details/{{u.id}}" ngSrc="https://localhost:7162/BookCover?id={{u.id}}"
+                     alt="userCurrentlyReading" width="100"
+                     height="150" style="cursor: pointer">
+              </div>
+              <div style="padding-left: 0.5rem">
+                <p style="font-weight: bold">{{ u.title }}<br> ({{ u.series }})</p>
+                <p>By {{ u.author }}</p>
+              </div>
+            </div>
+          }
+        </div>
+      }
+      <mat-divider></mat-divider>
+
+      @if (userWantToRead?.length != 0) {
+
+        <span style="font-size: large;padding-top: 1rem;font-weight: bold">Want to Read</span>
+        <div>
+          @for (u of userWantToRead; track u.id) {
+            <div style="display: flex;flex-direction: row">
+              <div>
+                <img routerLink="/book-details/{{u.id}}" ngSrc="https://localhost:7162/BookCover?id={{u.id}}"
+                     alt="userCurrentlyReading" width="100"
+                     height="150" style="cursor: pointer">
+              </div>
+              <div style="padding-left: 0.5rem">
+                <p style="font-weight: bold">{{ u.title }}<br> ({{ u.series }})</p>
+                <p>By {{ u.author }}</p>
+              </div>
+            </div>
+          }
+        </div>
+      }
+      <mat-divider></mat-divider>
+      <div class="bookshelf" style="color: #00635d">
+        <span style="font-size: large;font-weight: bold;color: black">Bookshelves</span>
+        <br>
+        <br>
+
+        <p style="cursor: pointer;"
+        >{{ userWantToRead?.length }}  Want to Read </p>
+        <p style=" cursor: pointer;">{{ userCurrentlyReading?.length }}  Currently Reading</p>
+        <p style=" cursor: pointer">{{ userRead?.length }}  Read </p>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="article" style="padding-left: 3rem;padding-top: 1rem">
+    @for (a of article.slice(0,1); track a.id) {
+      <mat-card>
+        <img routerLink="/article-details/{{a.id}}" priority ngSrc="https://localhost:7162/ArticleImage?id={{a.id}}" alt="" width="657" height="170">
+
+        <p style="font-size: large;font-family: 'Century Gothic',serif;font-weight: bolder;padding-top: 0.5rem;padding-left: 1rem">{{a.title}}</p>
+        <p style="width: 32rem;font-family: 'Century Gothic',serif;padding-left: 1rem;">{{a.articlePreview}}</p>
+      </mat-card>
+
+    }
+
+
+    <p style="margin-top: 1rem;font-size: larger;font-family: 'Century Gothic',serif;font-weight: bold">Updates</p>
+    @for(review of reviews;track review.id){
+
+
+
+      <div style="width: 41rem;height: 30rem;background-color: white;margin-top: 1rem;font-family: 'Century Gothic',serif;position: relative">
+        <div style="display: flex;flex-direction: row">
+          <div class="userImage" style="padding-top: 1rem;position: absolute; left: -15px; transform: translateX(-20%);">
+            <img routerLink="/user-profile/{{review.user.id}}" ngSrc="https://localhost:7162/GetUserImage?id={{review.user.id}}" alt="userImage" width="50" height="50" style="border-style: solid;border-radius: 100%;border-width: 0.1rem">
+          </div>
+          <div>
+            <p style="font-weight: bold;padding-left: 2rem;padding-top: 2rem">{{ review.user.name }}
+              <mark style="background-color: white;color: black;font-weight: lighter">reviewed</mark>
+              {{ review.book.title }} ({{ review.bookSeries }})
+            </p>
+            <div class="star-rating" style="padding-left: 2rem">
+              <ng-container *ngFor="let star of stars; let i = index">
+                <span [class.filled]="i < review.rating">&#9733;</span>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <p style="padding-left: 2rem">{{review.rating}}/5 stars</p>
+        <p style="padding-left: 2rem">{{review.review}}</p>
+        <div style="margin: 1.5rem;border-style: solid;border-width: 0.1rem;border-color: grey;display: flex;flex-direction: row">
+          <div>
+          <img routerLink="/book-details/{{review.book.id}}" style="padding-top: 1rem;padding-bottom: 1rem;padding-left: 1rem" ngSrc="https://localhost:7162/BookCover?id={{review.book.id}}" alt="" width="130" height="200">
+        </div>
+          <div style="padding-left: 1rem">
+            <p style="padding-top: 1rem">{{review.book.title}} ({{review.bookSeries}})</p>
+            <p>{{review.authorName}}</p>
+            <p>{{review.book.description.slice(0,270)}}...<mark routerLink="/book-details/{{review.book.id}}" style="cursor: pointer;background-color: white;color: #00635d">see more</mark> </p>
+          </div>
+        </div>
+        @if(service.isAdmin())
+        {
+        <button style="padding-left: 2rem" mat-raised-button (click)="deleteReview(review.user.id,review.book.id)">Delete review</button>
+        }
+      </div>
+      }
+
+    </div>
+  <div class="interview">
+    <p style="margin-top: 1rem;font-size: larger;font-family: 'Century Gothic',serif;font-weight: bold;padding-left: 2rem">News</p>
+
+    @for (a of article.slice(1,2); track a.id) {
+      @if(article)
+      {
+      <div style="padding-left: 2rem"><p style="width: 18rem;color: #00635d">{{ a.title }}</p>
+        <img routerLink="/article-details/{{a.id}}" priority ngSrc="https://localhost:7162/ArticleImage?id={{a.id}}" alt="" width="300" height="140"></div>
+      }
+    }
+    <mat-divider style="margin-left: 2rem;margin-top: 1.5rem;margin-right: 31rem  "></mat-divider>
+    <p style="font-family: 'Century Gothic',serif;font-weight: bold;padding-left: 3.5rem;font-size: larger;padding-top: 1rem">CorvoBianco recommends</p>
+    <div class="carousel-container">
+      <div class="carousel" #carousel>
+        @for(b of books.slice(4,7); track b.id)
+        {
+          <div class="carousel-item" style="padding-left: 8.5rem">
+            <div style="display: flex; flex-direction: column;align-items: center">
+              <div style="padding-top: 2rem;" routerLink="/book-details/{{b.id}}">
+                <img ngSrc="https://localhost:7162/BookCover?id={{b.id}}" alt="" width="170" height="200">
+              </div>
+              <div>
+                @if(b.series!=null)
+                {
+                <p style="padding-top: 0.5rem;">{{ b.title }} ({{b.series}})</p>
+                <p>{{ b.author }}</p>
+                } @else {
+                  <p style="padding-top: 0.5rem;">{{ b.title }}</p>
+                  <p>by {{ b.author }}</p>
+                }
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+      <div class="carousel-buttons">
+        <button class="carousel-button prev-button" (click)="prevSlide()">&lt;</button>
+        <button class="carousel-button next-button" (click)="nextSlide()">&gt;</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

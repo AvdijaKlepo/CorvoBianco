@@ -1,0 +1,32 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <h1 mat-dialog-title> Login</h1>
+  <div mat-dialog-content style="display:flex;flex-direction: column;width: 25rem">
+    <mat-form-field style="width: 20rem">
+      <mat-label>First name</mat-label>
+      <input matInput formControlName="name">
+    </mat-form-field>
+    <mat-form-field style="width: 20rem">
+      <mat-label>Last Name</mat-label>
+      <input matInput  formControlName="lastName">
+    </mat-form-field>
+    <mat-form-field style="width: 20rem">
+      <mat-label>Username</mat-label>
+      <input matInput  formControlName="username">
+    </mat-form-field>
+    <mat-form-field style="width: 20rem">
+      <mat-label>Password</mat-label>
+      <input matInput type="password"  formControlName="password">
+    </mat-form-field>
+    <mat-form-field style="width: 20rem">
+      <mat-label>BirthDate</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="birthDate">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button (click)="closeRegisterDialog()" >Cancel</button>
+    <button mat-raised-button type="submit">Register</button>
+  </div>
+</form>

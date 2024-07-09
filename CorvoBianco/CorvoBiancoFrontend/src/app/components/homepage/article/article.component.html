@@ -1,0 +1,52 @@
+<div style="display: flex;flex-direction: row;background-color: white">
+    @for (a of article; track a.id) {
+
+      <div class="allHeader" style="font-family:Lato,'Helvetica Neue',Helvetica,sans-serif">
+        <mat-card class="topArticle" routerLink="/article-details/{{a.id}}"
+                  style="cursor: pointer;border-top-right-radius: 3%;border-top-left-radius: 3%">
+          <mat-card-content>
+            <mat-card-title-group>
+              <mat-card-title>
+                <p style="font-family:Lato,'Helvetica Neue',Helvetica,sans-serif;font-weight:bold">
+                  {{ a.title }}
+
+                </p>
+                <p
+                  style="font-family:Lato,'Helvetica Neue',Helvetica,sans-serif;font-weight: lighter">{{ a.articlePreview }}</p>
+              </mat-card-title>
+              <mat-card-subtitle>
+                <p style="font-family:Lato,'Helvetica Neue',Helvetica,sans-serif;font-weight: lighter">
+                  Posted {{ a.posted | date }}</p>
+              </mat-card-subtitle>
+
+
+            </mat-card-title-group>
+          </mat-card-content>
+
+          <img priority alt="BigArticleImage" height="368" mat-card-image width="860"
+               ngSrc="https://localhost:7162/ArticleImage?id={{a.id}}"
+               style="cursor: pointer;border-top-right-radius: 3%;border-top-left-radius: 3%">
+        </mat-card>
+
+      </div>
+
+      <div class="ThreeArticleLinks">
+        @for (article of article.slice(1,article.length); track article.id) {
+
+          <a href="" routerLink="/article-details/{{article.id}}"
+             style="font-family:Lato,'Helvetica Neue',Helvetica,sans-serif;font-weight: lighter">
+            {{ article.title }}
+          </a>
+
+        }
+
+        <a style="font-family:Lato,'Helvetica Neue',Helvetica,sans-serif;font-weight: bold;font-size:medium" href=""
+           routerLink="/articles">More news and interviews
+          <mat-icon>keyboard_arrow_right</mat-icon>
+        </a>
+      </div>
+
+
+    }
+  </div>
+

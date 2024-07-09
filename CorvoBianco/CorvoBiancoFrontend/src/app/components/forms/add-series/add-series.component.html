@@ -1,0 +1,27 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <h1 mat-dialog-title> Add New Series</h1>
+  <div mat-dialog-content style="display:flex;flex-direction: column;width: 25rem">
+    <mat-form-field style="width: 20rem">
+      <mat-label>Series Name</mat-label>
+      <input matInput formControlName="seriesName" >
+    </mat-form-field>
+
+
+    <mat-form-field style="width: 20rem;">
+      <mat-label>Author</mat-label>
+      <mat-select formControlName="authorId">
+        @for (author of authors; track author.id) {
+          <mat-option [value]="author.id">{{ author.firstName }} {{ author.lastName }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button (click)="closeAddSeriesDialog()" >Cancel</button>
+    <button mat-raised-button type="submit">Add Series</button>
+  </div>
+</form>
+
+
+
